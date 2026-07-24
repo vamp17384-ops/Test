@@ -1,10 +1,11 @@
 :root {
     --primary-color: #6366f1;
     --primary-hover: #4f46e5;
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --text-color: #1e2937;
-    --border-color: #e2e8f0;
+    --bg-color: #0f172a;
+    --card-bg: #1e2937;
+    --text-color: #f1f5f9;
+    --border-color: #334155;
+    --input-bg: #334155;
 }
 
 * {
@@ -15,7 +16,7 @@
 
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #1e2937 0%, #0f172a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,9 +33,10 @@ body {
 .login-box {
     background: var(--card-bg);
     border-radius: 20px;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
     overflow: hidden;
     padding: 40px 30px;
+    border: 1px solid var(--border-color);
 }
 
 .header {
@@ -50,13 +52,13 @@ body {
 }
 
 .header p {
-    color: #64748b;
+    color: #94a3b8;
     font-size: 1.1rem;
 }
 
 .tabs {
     display: flex;
-    background: var(--border-color);
+    background: #334155;
     border-radius: 12px;
     padding: 4px;
     margin-bottom: 30px;
@@ -71,11 +73,12 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #cbd5e1;
 }
 
 .tab-button.active {
-    background: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: #1e2937;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     color: var(--primary-color);
 }
 
@@ -95,23 +98,25 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #475569;
+    color: #94a3b8;
     font-size: 0.95rem;
 }
 
 .input-group input {
     width: 100%;
     padding: 14px 16px;
+    background: var(--input-bg);
     border: 2px solid var(--border-color);
     border-radius: 12px;
     font-size: 1rem;
+    color: white;
     transition: border 0.3s ease;
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .options {
@@ -127,6 +132,7 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    color: #cbd5e1;
 }
 
 .forgot {
@@ -160,7 +166,7 @@ body {
     text-align: center;
     margin: 24px 0;
     font-size: 0.85rem;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .footer-links a {
@@ -174,7 +180,7 @@ body {
 
 .social-login p {
     margin-bottom: 12px;
-    color: #64748b;
+    color: #94a3b8;
     font-size: 0.95rem;
 }
 
@@ -187,7 +193,8 @@ body {
     flex: 1;
     padding: 12px;
     border: 2px solid var(--border-color);
-    background: white;
+    background: #334155;
+    color: white;
     border-radius: 12px;
     font-weight: 500;
     cursor: pointer;

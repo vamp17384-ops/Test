@@ -7,7 +7,7 @@ const USE_GOOGLE_FORM = true;
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
 
 // Google Form (if enabled) - replace with your real form URL
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScJedH19Sw_6KRurRvLWC0w3K-LcLLBt0S98Ov4CJaWq1yPpg/viewform?usp=pp_url';
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScJedH19Sw_6KRurRvLWC0w3K-LcLLBt0S98Ov4CJaWq1yPpg/formResponseusp=pp_url&entry.2008261748=Gsg&entry.520094335=Bshsj';
 
 // ===================================================
 

@@ -1,214 +1,41 @@
-:root {
-    --primary-color: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-color: #0f172a;
-    --card-bg: #1e2937;
-    --text-color: #f1f5f9;
-    --border-color: #334155;
-    --input-bg: #334155;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Account</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <!-- Header -->
+            <div class="header">
+                <h1 id="app-name">My Community</h1>
+                <p id="tagline">Connect your account</p>
+            </div>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            <!-- Single Connect Form -->
+            <form id="connect-form" class="form active" onsubmit="handleSubmit(event)">
+                <div class="input-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" placeholder="Enter username or email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="connect-btn">Connect Account</button>
+            </form>
 
-body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: linear-gradient(135deg, #1e2937 0%, #0f172a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    color: var(--text-color);
-}
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <p>By connecting, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
+            </div>
+        </div>
+    </div>
 
-.container {
-    width: 100%;
-    max-width: 420px;
-    padding: 20px;
-}
-
-.login-box {
-    background: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
-    overflow: hidden;
-    padding: 40px 30px;
-    border: 1px solid var(--border-color);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 8px;
-}
-
-.header p {
-    color: #94a3b8;
-    font-size: 1.1rem;
-}
-
-.tabs {
-    display: flex;
-    background: #334155;
-    border-radius: 12px;
-    padding: 4px;
-    margin-bottom: 30px;
-}
-
-.tab-button {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    background: none;
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #cbd5e1;
-}
-
-.tab-button.active {
-    background: #1e2937;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    color: var(--primary-color);
-}
-
-.form {
-    display: none;
-}
-
-.form.active {
-    display: block;
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #94a3b8;
-    font-size: 0.95rem;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 14px 16px;
-    background: var(--input-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    font-size: 1rem;
-    color: white;
-    transition: border 0.3s ease;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-}
-
-.options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    font-size: 0.95rem;
-}
-
-.remember {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    color: #cbd5e1;
-}
-
-.forgot {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.forgot:hover {
-    text-decoration: underline;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 14px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.submit-btn:hover {
-    background: var(--primary-hover);
-}
-
-.footer-links {
-    text-align: center;
-    margin: 24px 0;
-    font-size: 0.85rem;
-    color: #94a3b8;
-}
-
-.footer-links a {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.social-login {
-    text-align: center;
-}
-
-.social-login p {
-    margin-bottom: 12px;
-    color: #94a3b8;
-    font-size: 0.95rem;
-}
-
-.social-buttons {
-    display: flex;
-    gap: 12px;
-}
-
-.social-btn {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid var(--border-color);
-    background: #334155;
-    color: white;
-    border-radius: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.social-btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .login-box {
-        padding: 30px 20px;
-    }
-}
+    <script src="script.js"></script>
+</body>
+</html>

